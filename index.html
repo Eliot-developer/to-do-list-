@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>my to-do ♡</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#fbf3f1;--b1:#f9d5df;--b2:#e1d8f8;--b3:#d6ecdc;--b4:#fcefc8;
+  --card:#fffdfcf0;--text:#5e4b5f;--muted:#a995ad;--line:#f0e2e6;--accent:#e99bb8;--accent2:#b9a5ec;--late:#e97a95;
+  --sh:0 8px 24px #d9aebe30;
+  --pink:#f6b6cf;--lilac:#cdbdf5;--sage:#b9dcc6;--butter:#f7dd94;--sky:#bcdcf2;--peach:#fbc9b0;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+  --bg:#1f1822;--b1:#4a2a3d;--b2:#352f5a;--b3:#23423a;--b4:#4a4026;--card:#2e2535f2;--text:#f6ebf6;--muted:#a592b2;--line:#41344b;--sh:0 8px 24px #0005;}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#1f1822;--b1:#4a2a3d;--b2:#352f5a;--b3:#23423a;--b4:#4a4026;--card:#2e2535f2;--text:#f6ebf6;--muted:#a592b2;--line:#41344b;--sh:0 8px 24px #0005;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;font-family:'Vazirmatn',Tahoma,system-ui,sans-serif;color:var(--text);background:var(--bg);padding:22px 16px 80px;position:relative;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(circle at 0 0,var(--b1) 0,transparent 42%),radial-gradient(circle at 100% 28%,var(--b2) 0,transparent 40%),radial-gradient(circle at 0 78%,var(--b3) 0,transparent 40%),radial-gradient(circle at 100% 100%,var(--b4) 0,transparent 38%)}
+.wrap{max-width:480px;margin:0 auto;position:relative;z-index:1}
+button{font:inherit;color:inherit}
+/* header */
+.head{position:relative;background:var(--card);border-radius:28px;padding:22px 20px 18px;box-shadow:var(--sh);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.head:before{content:"";position:absolute;top:-10px;right:34px;width:84px;height:22px;transform:rotate(-4deg);opacity:.85;border-radius:3px;
+  background:repeating-linear-gradient(90deg,var(--pink) 0 10px,#fff8 10px 14px)}
+.logo{font-family:'Dancing Script',cursive;font-size:34px;line-height:1;color:var(--accent);direction:ltr;text-align:right}
+.hi{margin-top:8px;font-size:15px;font-weight:600;cursor:pointer}
+.date{font-size:12.5px;color:var(--muted);margin-top:2px}
+.ring{position:relative;width:78px;height:78px;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8;stroke-linecap:round}
+.ring .t{stroke:var(--line)}.ring .p{stroke:url(#g);stroke-dasharray:201;stroke-dashoffset:201;transition:stroke-dashoffset .6s}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:15px;font-weight:800}
+/* chips */
+.row{display:flex;gap:8px;overflow-x:auto;padding:14px 2px 4px;scrollbar-width:none}
+.row::-webkit-scrollbar{display:none}
+.chip{flex:none;border:0;background:var(--card);padding:8px 15px;border-radius:999px;font-size:13.5px;cursor:pointer;box-shadow:0 2px 8px #d9aebe22;display:flex;align-items:center;gap:6px;transition:.2s}
+.chip i{width:9px;height:9px;border-radius:50%;background:var(--cc,var(--accent))}
+.chip.on{background:var(--cc,var(--accent));color:#4b3a4d;font-weight:600}
+.chip.on i{background:#fff9}
+/* add */
+.add{background:var(--card);border-radius:26px;padding:12px;box-shadow:var(--sh);margin-top:12px}
+.in{display:flex;align-items:center;gap:6px}
+.in input[type=text]{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:16px;color:var(--text);padding:10px 10px;outline:0}
+.in input::placeholder{color:var(--muted)}
+.star{border:0;background:transparent;font-size:22px;color:var(--muted);cursor:pointer;padding:4px 6px}
+.star.on{color:#f2c14e}
+.go{flex:none;width:44px;height:44px;border:0;border-radius:50%;cursor:pointer;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 4px 12px #b9a5ec55}
+.go:active{transform:scale(.9)}
+.opts{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;padding-top:10px;border-top:1px dashed var(--line);align-items:center}
+.opts .chip{padding:6px 12px;font-size:12.5px;background:var(--line);box-shadow:none}
+.opts .chip.on{background:var(--b2);color:var(--text);font-weight:600}
+.opts label{font-size:12.5px;color:var(--muted)}
+.opts input[type=date]{border:0;background:var(--line);color:var(--text);border-radius:999px;padding:5px 10px;font:inherit;font-size:12px;max-width:128px}
+/* tabs */
+.tabs{display:flex;background:var(--card);border-radius:999px;padding:4px;margin:16px 0 14px;box-shadow:var(--sh)}
+.tabs button{flex:1;border:0;background:transparent;padding:9px 4px;border-radius:999px;font-size:13.5px;color:var(--muted);cursor:pointer;transition:.2s}
+.tabs button.on{background:linear-gradient(135deg,var(--b1),var(--b2));color:var(--text);font-weight:600}
+/* list */
+ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+li{display:flex;align-items:center;gap:13px;background:var(--card);padding:14px 15px;border-radius:22px;box-shadow:var(--sh);border-right:5px solid var(--cc);animation:in .35s ease}
+@keyframes in{from{transform:translateY(8px);opacity:0}}
+.chk{flex:none;width:28px;height:28px;border-radius:50%;border:2px solid var(--cc);background:transparent;cursor:pointer;display:grid;place-items:center;padding:0;transition:.25s}
+.chk svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .3s .05s}
+li.done .chk{background:var(--cc);animation:pulse .4s}
+li.done .chk svg{stroke-dashoffset:0}
+@keyframes pulse{50%{transform:scale(1.25)}}
+.body{flex:1;min-width:0;cursor:pointer}
+.txt{font-size:16.5px;line-height:1.6;word-break:break-word}
+li.done .txt{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--accent);text-decoration-thickness:2px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.tag{font-size:11.5px;padding:2px 9px;border-radius:999px;background:var(--line);color:var(--muted)}
+.tag.c{background:var(--cc);color:#4b3a4d}.tag.late{background:#fde0e7;color:var(--late);font-weight:600}.tag.today{background:var(--b4);color:#8a6d1f}
+.mini{flex:none;border:0;background:transparent;padding:6px;cursor:pointer;opacity:.55;font-size:16px;line-height:1;color:var(--text)}
+.mini.on{opacity:1;color:#f2c14e}
+.empty{text-align:center;color:var(--muted);padding:44px 0;line-height:2;font-size:15px}
+.empty big{display:block;font-family:'Dancing Script',cursive;font-size:34px;color:var(--accent);direction:ltr}
+.clear{display:block;margin:18px auto 0;border:0;background:transparent;color:var(--muted);font-size:13.5px;padding:8px 14px;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:6px}
+.clear[hidden]{display:none}
+/* focus */
+.focus{margin-top:26px;background:var(--card);border-radius:26px;padding:18px;box-shadow:var(--sh);text-align:center}
+.focus h3{margin:0 0 4px;font-size:15px}
+.focus small{color:var(--muted);font-size:12.5px}
+.time{font-size:46px;font-weight:300;letter-spacing:2px;margin:6px 0 10px;font-variant-numeric:tabular-nums}
+.fb{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.fb button{border:0;border-radius:999px;padding:9px 18px;background:var(--line);cursor:pointer;font-size:13.5px}
+.fb .pri{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:600}
+.bit{position:fixed;width:9px;height:9px;border-radius:50%;pointer-events:none;z-index:9;animation:fly .8s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--x),var(--y));opacity:0}}
+</style>
+
+<meta name="theme-color" content="#fbf3f1">
+<meta name="description" content="My To-do — برنامه‌ی لطیف و ساده برای مدیریت کارها و تمرکز">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div>
+      <div class="logo">my to-do ♡</div>
+      <div class="hi" id="hi"></div>
+      <div class="date" id="date"></div>
+    </div>
+    <div class="ring"><svg viewBox="0 0 80 80"><defs><linearGradient id="g"><stop offset="0" stop-color="#f4a3c1"/><stop offset="1" stop-color="#b9a5ec"/></linearGradient></defs><circle class="t" cx="40" cy="40" r="32"/><circle class="p" id="ringp" cx="40" cy="40" r="32"/></svg><b id="pct"></b></div>
+  </div>
+
+  <div class="row" id="cats"></div>
+
+  <div class="add">
+    <div class="in">
+      <input id="in" type="text" placeholder="چه کاری داری؟ ✧" enterkeyhint="done" autocomplete="off">
+      <button class="star" id="star" aria-label="مهم">☆</button>
+      <button class="go" id="btn" aria-label="افزودن"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+    </div>
+    <div class="opts" id="opts"></div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <ul id="list"></ul>
+  <button class="clear" id="clear" hidden>پاک کردن انجام‌شده‌ها</button>
+
+  <div class="focus">
+    <h3>✧ تایمر تمرکز</h3><small>۲۵ دقیقه تمرکز، ۵ دقیقه استراحت</small>
+    <div class="time" id="time">۲۵:۰۰</div>
+    <div class="fb"><button class="pri" id="fgo">شروع</button><button id="fmode">استراحت ۵ دقیقه‌ای</button><button id="frst">ریست</button></div>
+  </div>
+</div>
+<script>
+const KEY='cute-todos-v1',NK='cute-name';
+const CATS=[{id:'me',n:'خودم',c:'--pink'},{id:'uni',n:'دانشگاه',c:'--sky'},{id:'work',n:'کار و پروژه',c:'--lilac'},{id:'shop',n:'خرید',c:'--butter'},{id:'health',n:'سلامتی',c:'--sage'},{id:'fun',n:'خوش‌گذرونی',c:'--peach'}];
+const TABS=[['all','همه'],['today','امروز'],['star','مهم'],['done','انجام‌شده']];
+const DUES=[['','بدون تاریخ'],['0','امروز'],['1','فردا'],['7','هفته‌ی بعد']];
+let todos=[],cat='all',tab='all',newCat='me',newDue='',newStar=false;
+try{todos=JSON.parse(localStorage.getItem(KEY))||[];}catch(e){}
+const $=id=>document.getElementById(id),fa=n=>Number(n).toLocaleString('fa-IR');
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(todos));}catch(e){}};
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const plus=n=>{const d=new Date();d.setDate(d.getDate()+n);return iso(d);};
+const cv=id=>(CATS.find(c=>c.id===id)||CATS[0]).c;
+function head(){
+  const h=new Date().getHours(),g=h<5?'شب بخیر':h<12?'صبح بخیر':h<17?'ظهر بخیر':h<21?'عصر بخیر':'شب بخیر';
+  let n='';try{n=localStorage.getItem(NK)||'';}catch(e){}
+  $('hi').textContent=g+(n?' '+n:'')+' ✿';
+  try{$('date').textContent=new Date().toLocaleDateString('fa-IR',{weekday:'long',day:'numeric',month:'long'});}catch(e){}
+}
+$('hi').onclick=()=>{const n=prompt('اسمت چیه؟');if(n!==null){try{localStorage.setItem(NK,n.trim());}catch(e){}head();}};
+function burst(el){
+  const r=el.getBoundingClientRect(),x0=r.left+r.width/2,y0=r.top+r.height/2,cols=['#f7a8c8','#b7a8f2','#9fdcc4','#f7dd94'];
+  for(let i=0;i<12;i++){const s=document.createElement('span');s.className='bit';s.style.background=cols[i%4];s.style.left=x0+'px';s.style.top=y0+'px';
+    const a=Math.random()*6.28,d=30+Math.random()*50;s.style.setProperty('--x',Math.cos(a)*d+'px');s.style.setProperty('--y',Math.sin(a)*d+'px');
+    document.body.append(s);setTimeout(()=>s.remove(),800);}
+}
+function chip(label,on,fn,cvar){const b=document.createElement('button');b.className='chip'+(on?' on':'');if(cvar)b.style.setProperty('--cc','var('+cvar+')');
+  b.innerHTML=(cvar?'<i></i>':'')+label;b.onclick=fn;return b;}
+function renderTop(){
+  const c=$('cats');c.innerHTML='';
+  c.append(chip('همه',cat==='all',()=>{cat='all';newCat='me';renderTop();render();}));
+  CATS.forEach(k=>c.append(chip(k.n,cat===k.id,()=>{cat=k.id;newCat=k.id;renderTop();render();},k.c)));
+  const o=$('opts');o.innerHTML='<label>موعد:</label>';
+  DUES.forEach(([d,l])=>{const v=d===''?'':plus(+d);o.append(chip(l,newDue===v,()=>{newDue=v;$('dt').value='';renderTop();}));});
+  const dt=document.createElement('input');dt.type='date';dt.id='dt';dt.value=DUES.some(([d])=>d!==''&&plus(+d)===newDue)||!newDue?'':newDue;
+  dt.onchange=()=>{newDue=dt.value;renderTop();};o.append(dt);
+  const t=$('tabs');t.innerHTML='';
+  TABS.forEach(([k,l])=>{const b=document.createElement('button');b.textContent=l;if(tab===k)b.className='on';b.onclick=()=>{tab=k;renderTop();render();};t.append(b);});
+}
+function dueTag(t){
+  if(!t.due)return null;const td=plus(0);const s=document.createElement('span');
+  if(t.due===td){s.className='tag today';s.textContent='امروز';}
+  else if(t.due===plus(1)){s.className='tag';s.textContent='فردا';}
+  else if(t.due<td&&!t.done){s.className='tag late';s.textContent='عقب‌افتاده';}
+  else{s.className='tag';s.textContent=new Date(t.due+'T00:00').toLocaleDateString('fa-IR',{day:'numeric',month:'long'});}
+  return s;
+}
+function render(){
+  const td=plus(0);
+  let v=todos.filter(t=>(cat==='all'||t.cat===cat)&&(tab==='all'||(tab==='today'?(t.due&&t.due<=td&&!t.done)||t.due===td:tab==='star'?t.star:t.done)));
+  v.sort((a,b)=>(a.done-b.done)||((b.star?1:0)-(a.star?1:0))||((a.due||'9')<(b.due||'9')?-1:(a.due||'9')>(b.due||'9')?1:0)||b.id-a.id);
+  const list=$('list');list.innerHTML='';
+  if(!v.length)list.innerHTML='<div class="empty"><big>nothing here ♡</big>'+(tab==='done'?'هنوز کاری رو تموم نکردی':'اینجا خالیه، یه کار بنویس!')+'</div>';
+  v.forEach(t=>{
+    const li=document.createElement('li');li.style.setProperty('--cc','var('+cv(t.cat)+')');if(t.done)li.className='done';
+    const c=document.createElement('button');c.className='chk';c.setAttribute('aria-label','انجام شد');
+    c.innerHTML='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+    const b=document.createElement('div');b.className='body';
+    const s=document.createElement('div');s.className='txt';s.textContent=t.text;b.append(s);
+    const tg=document.createElement('div');tg.className='tags';
+    const ct=document.createElement('span');ct.className='tag c';ct.textContent=(CATS.find(k=>k.id===t.cat)||CATS[0]).n;tg.append(ct);
+    const dtg=dueTag(t);if(dtg)tg.append(dtg);b.append(tg);
+    const st=document.createElement('button');st.className='mini'+(t.star?' on':'');st.textContent=t.star?'★':'☆';st.setAttribute('aria-label','مهم');
+    const d=document.createElement('button');d.className='mini';d.textContent='✕';d.setAttribute('aria-label','حذف');
+    c.onclick=b.onclick=()=>{t.done=!t.done;if(t.done)burst(c);save();render();};
+    st.onclick=()=>{t.star=!t.star;save();render();};
+    d.onclick=()=>{todos=todos.filter(x=>x.id!==t.id);save();render();};
+    li.append(c,b,st,d);list.append(li);
+  });
+  const sc=todos.filter(t=>cat==='all'||t.cat===cat),done=sc.filter(t=>t.done).length,p=sc.length?Math.round(done/sc.length*100):0;
+  $('pct').textContent=fa(p)+'٪';$('ringp').style.strokeDashoffset=201-201*p/100;
+  $('clear').hidden=!todos.some(t=>t.done);
+}
+function add(){const v=$('in').value.trim();if(!v)return;
+  todos.unshift({id:Date.now(),text:v,done:false,cat:newCat,due:newDue,star:newStar});
+  $('in').value='';newStar=false;$('star').className='star';$('star').textContent='☆';save();render();}
+$('btn').onclick=add;$('in').addEventListener('keydown',e=>{if(e.key==='Enter')add();});
+$('star').onclick=()=>{newStar=!newStar;$('star').className='star'+(newStar?' on':'');$('star').textContent=newStar?'★':'☆';};
+$('clear').onclick=()=>{todos=todos.filter(t=>!t.done);save();render();};
+/* focus timer */
+let mode=25*60,left=mode,end=0,tm=null;
+const show=()=>{const m=Math.floor(left/60),s=left%60;$('time').textContent=fa(String(m).padStart(2,'0'))+':'+fa(String(s).padStart(2,'0'));};
+function stop(){clearInterval(tm);tm=null;$('fgo').textContent='شروع';}
+$('fgo').onclick=()=>{
+  if(tm){stop();return;}
+  end=Date.now()+left*1000;$('fgo').textContent='توقف';
+  tm=setInterval(()=>{left=Math.max(0,Math.round((end-Date.now())/1000));show();
+    if(!left){stop();try{navigator.vibrate&&navigator.vibrate([200,100,200]);}catch(e){}$('time').textContent='تموم شد ♡';}},250);
+};
+$('frst').onclick=()=>{stop();left=mode;show();};
+$('fmode').onclick=()=>{stop();mode=mode===25*60?5*60:25*60;left=mode;$('fmode').textContent=mode===25*60?'استراحت ۵ دقیقه‌ای':'برگشت به تمرکز';show();};
+head();renderTop();render();show();
+</script>
+
+<script>
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch((err) => {
+      console.warn("Service worker registration failed:", err);
+    });
+  });
+}
+</script>
+
+</body>
+</html>
